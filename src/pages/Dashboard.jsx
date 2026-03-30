@@ -23,6 +23,31 @@ const tipoColores = {
   'Actividad': 'bg-[#FBBF24]',
 };
 
+const solicitarNotificaciones = async () => {
+  if (!("Notification" in window)) {
+    alert("Este navegador no soporta notificaciones de escritorio o móviles.");
+    return;
+  }
+  
+  if (Notification.permission === "granted") {
+    new Notification("Notificaciones Activas", {
+      body: "Ya recibirás alertas para los eventos programados.",
+      icon: "/favicon.ico"
+    });
+    alert("¡Las notificaciones ya están activas!");
+  } else if (Notification.permission !== "denied") {
+    const permission = await Notification.requestPermission();
+    if (permission === "granted") {
+      new Notification("Gestión Escolar familiar", {
+        body: "Configuración exitosa.",
+      });
+    }
+  } else {
+    alert("Bloqueaste las notificaciones. Debes activarlas en la configuración del navegador (el candado en la barra de direcciones).");
+  }
+};
+
+
 // ─────────────────────────────────────────────
 // Vista normal (admin / parent)
 // ─────────────────────────────────────────────
@@ -61,7 +86,11 @@ function DashboardAdmin({ profile, eventosBD, cargando }) {
               <h2 className="text-[18px] font-black tracking-tight text-gray-900">{profile?.name || 'Usuario'}</h2>
             </div>
           </div>
-          <button className="w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-sm text-gray-400 hover:text-indigo-500 transition-colors relative border border-gray-50">
+          <button 
+            onClick={solicitarNotificaciones}
+            className="w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-sm text-gray-400 hover:text-indigo-500 transition-colors relative border border-gray-50"
+            title="Activar notificaciones"
+          >
             <span className="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-red-500 rounded-full border-2 border-white"></span>
             <Bell size={18} strokeWidth={2.5} />
           </button>
@@ -196,7 +225,11 @@ function DashboardHija({ profile, eventosBD, cargando, signOut }) {
             </div>
           </div>
           <div className="flex gap-2">
-            <button className="w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-sm text-gray-400 hover:text-indigo-500 transition-colors relative border border-gray-50">
+            <button 
+              onClick={solicitarNotificaciones}
+              className="w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-sm text-gray-400 hover:text-indigo-500 transition-colors relative border border-gray-50"
+              title="Activar notificaciones"
+            >
               <span className="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-red-500 rounded-full border-2 border-white"></span>
               <Bell size={18} strokeWidth={2.5} />
             </button>
