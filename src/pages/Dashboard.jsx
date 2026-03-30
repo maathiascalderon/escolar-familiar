@@ -195,13 +195,19 @@ function DashboardHija({ profile, eventosBD, cargando, signOut }) {
               <h2 className="text-[20px] font-black tracking-tight text-gray-900">{profile?.name}</h2>
             </div>
           </div>
-          <button
-            onClick={signOut}
-            className="w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-sm text-red-400 hover:text-red-600 hover:bg-red-50 transition-colors border border-gray-50"
-            title="Cerrar sesión"
-          >
-            <LogOut size={18} strokeWidth={2.5} />
-          </button>
+          <div className="flex gap-2">
+            <button className="w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-sm text-gray-400 hover:text-indigo-500 transition-colors relative border border-gray-50">
+              <span className="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-red-500 rounded-full border-2 border-white"></span>
+              <Bell size={18} strokeWidth={2.5} />
+            </button>
+            <button
+              onClick={signOut}
+              className="w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-sm text-red-400 hover:text-red-600 hover:bg-red-50 transition-colors border border-gray-50"
+              title="Cerrar sesión"
+            >
+              <LogOut size={18} strokeWidth={2.5} />
+            </button>
+          </div>
         </div>
 
         {/* Próxima actividad */}
